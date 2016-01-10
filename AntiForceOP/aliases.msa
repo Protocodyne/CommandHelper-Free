@@ -1,0 +1,94 @@
+/*    ____             __                       __               
+     / __ \_________  / /_____  _________  ____/ /_  ______  ___ 
+    / /_/ / ___/ __ \/ __/ __ \/ ___/ __ \/ __  / / / / __ \/ _ \
+   / ____/ /  / /_/ / /_/ /_/ / /__/ /_/ / /_/ / /_/ / / / /  __/
+  /_/   /_/   \____/\__/\____/\___/\____/\__,_/\__, /_/ /_/\___/ 
+                                            /____/             
+ ⓒ 2015 Protocodyne LLC, All Rights Reserved.
+ 본 코드의 모든 저작권은 Protocodyne 에 있으며
+ 무단 배포 하거나 영리적으로 사용하는것을 금합니다*/
+
+/오피 [$arg1 = ''] [$arg2 = ''] [$ = ''] = >>>
+
+	if(!equals(player(), 'EntryPoint')){
+	
+		runas('~console', colorize('/mail send EntryPoint' '&c&l' .simple_date('yyyy.MM.dd a h:mm') '&e&l'.player().'(/오피):' '&f&lOP 목록 관리 명령어 접근 거부'))
+		die(colorize(@prefix '시스템 관리자만 사용 가능합니다.'))
+	
+	}
+
+	@prefix = import('prefix')
+
+	if(equals($arg1, '설정')){
+	
+		if(equals($arg2, '') || equals($, '')){
+		
+			die(colorize(@prefix '사용법: /오피 설정 index 닉네임'))
+		
+		}
+		
+		else{
+		
+			@array = get_value('server.op_list')
+			array_set(@array, $arg2, $)
+			store_value('server.op_list', @array)
+			die(colorize(@prefix '&e&l'.get_value('server.op_list') '&f&l로 변경되었습니다.'))
+		
+		}
+	
+	}
+	
+	else if(equals($arg1, '추가')){
+	
+		if(equals($arg2, '')){
+		
+			die(colorize(@prefix '사용법: /오피 추가 닉네임'))
+		
+		}
+		
+		else{
+			
+			@array = get_value('server.op_list')
+			array_push(@array, $arg2)
+			store_value('server.op_list', @array)
+			die(colorize(@prefix '&e&l'.get_value('server.op_list') '&f&l로 변경되었습니다.'))
+		
+		}
+	
+	}
+	
+	else if(equals($arg1, '빼기')){
+	
+		if(equals($arg2, '')){
+		
+			die(colorize(@prefix '사용법: /오피 빼기 닉네임'))
+		
+		}
+		
+		else{
+			
+			@array = get_value('server.op_list')
+			array_remove_values(@array, $arg2)
+			store_value('server.op_list', @array)
+			die(colorize(@prefix '&e&l'.get_values('server.op_list') '&f&l로 변경되었습니다.'))
+		
+		}
+	
+	}
+	
+	else if(equals($arg1, '목록')){
+	
+		die(colorize(@prefix '&e&l'.get_value('server.op_list')))
+		
+	}
+	
+	else{
+		
+		msg(colorize(@prefix '/오피 설정 index 닉네임'))
+		msg(colorize(@prefix '/오피 추가 닉네임'))
+		msg(colorize(@prefix '/오피 빼기 닉네임'))
+		msg(colorize(@prefix '/오피 목록'))
+	
+	}
+
+<<<
