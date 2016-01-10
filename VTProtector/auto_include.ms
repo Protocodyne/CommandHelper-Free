@@ -4,11 +4,8 @@ proc(_placeholder, @arg,
 	
 	foreach(@ph in @array){
 
-		if(string_position(@arg, '<'.@ph) >= 0 && string_position(@arg, '>') >= 0){
-		
-			return(true)
-		
-		}
+		if(string_position(@arg, '<'.@ph) >= 0 && string_position(@arg, '>') >= 0
+			,return(true))
 	
 	}
 
