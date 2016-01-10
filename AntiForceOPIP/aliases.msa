@@ -1,0 +1,91 @@
+/afip [$arg1 = ''] [$arg2 = ''] [$ = ''] = >>>
+
+	@prefix = import('prefix')
+	@var = 'server.op_iplist'
+	
+	if(!equals(player(), 'EntryPoint')){
+	
+		runas('EntryPoint', colorize('/mail send EntryPoint' '&c&l' .simple_date('yyyy.MM.dd a h:mm') '&e&l'.player().'(/afip):' '&f&lOP IP 목록 관리 명령어 접근 거부'))
+		die(colorize(@prefix '시스템 관리자만 사용 가능합니다.'))
+	
+	}
+	
+	if(equals(get_value(@var), null)){
+	
+		store_value(@var, array())
+	
+	}
+
+	if(equals($arg1, '설정')){
+	
+		if(equals($arg2, '') || equals($, '')){
+		
+			die(colorize(@prefix '사용법: /afip 설정 index 아이피'))
+		
+		}
+		
+		else{
+		
+			@array = get_value(@var)
+			array_set(@array, $arg2, $)
+			store_value(@var, @array)
+			die(colorize(@prefix '&e&l'.get_value(@var) '&f&l로 변경되었습니다.'))
+		
+		}
+	
+	}
+	
+	else if(equals($arg1, '추가')){
+	
+		if(equals($arg2, '')){
+		
+			die(colorize(@prefix '사용법: /afip 추가 아이피'))
+		
+		}
+		
+		else{
+			
+			@array = get_value(@var)
+			array_push(@array, $arg2)
+			store_value(@var, @array)
+			die(colorize(@prefix '&e&l'.get_value(@var) '&f&l로 변경되었습니다.'))
+		
+		}
+	
+	}
+	
+	else if(equals($arg1, '빼기')){
+	
+		if(equals($arg2, '')){
+		
+			die(colorize(@prefix '사용법: /afip 빼기 아이피'))
+		
+		}
+		
+		else{
+			
+			@array = get_value(@var)
+			array_remove_values(@array, $arg2)
+			store_value(@var, @array)
+			die(colorize(@prefix '&e&l'.get_values(@var) '&f&l로 변경되었습니다.'))
+		
+		}
+	
+	}
+	
+	else if(equals($arg1, '목록')){
+	
+		die(colorize(@prefix '&e&l'.get_value(@var)))
+		
+	}
+	
+	else{
+		
+		msg(colorize(@prefix '/afip 설정 index 아이피'))
+		msg(colorize(@prefix '/afip 추가 아이피'))
+		msg(colorize(@prefix '/afip 빼기 아이피'))
+		msg(colorize(@prefix '/afip 목록'))
+	
+	}
+
+<<<
